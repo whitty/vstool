@@ -1,9 +1,11 @@
 #!/usr/bin/ruby
 
 require 'pathname'
-require 'ocratools'
 
-OcraTools.modify_facets_path
+#review this - ocra integration
+#require 'ocratools'
+#OcraTools.modify_facets_path
+
 require 'vstool'
 require 'command'
 require 'enumerator'

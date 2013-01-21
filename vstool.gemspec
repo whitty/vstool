@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.name        = "vstool"
   s.version     = VsTool::VERSION
   s.authors     = ["Greg Whiteley"]
-  s.email       = ["whitty@users.sourceforge.net"]
+  s.email       = ["whitty@users.forge.net"]
   s.homepage    = "https://github.com/whitty/vstool"
   s.summary     = %q{vstool eases creation of tools with sub-commands}
   s.description = %q{vstool eases creation of tools with sub-commands}
@@ -13,9 +13,9 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "vstool"
 
-  s.add_runtime_dependency = 'gw_command'
-  s.add_runtime_dependency = 'win32ole'
-  s.add_runtime_dependency = 'win32olerot', ">=0.0.2"
+  # s.add_runtime_dependency = 'gw_command'
+  # s.add_runtime_dependency = 'win32ole'
+  # s.add_runtime_dependency = 'win32olerot', ">=0.0.2"
 
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec", ">= 2.10.0"
