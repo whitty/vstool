@@ -13,9 +13,9 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "vstool"
 
-  # s.add_runtime_dependency = 'gw_command'
-  # s.add_runtime_dependency = 'win32ole'
-  # s.add_runtime_dependency = 'win32olerot', ">=0.0.2"
+  s.add_runtime_dependency 'gw_command'
+  s.add_runtime_dependency 'facets', ">=2.0"
+  s.add_runtime_dependency 'win32olerot', ">=0.0.2"
 
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec", ">= 2.10.0"

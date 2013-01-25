@@ -7,9 +7,8 @@ require 'pathname'
 #OcraTools.modify_facets_path
 
 require 'vstool'
-require 'command'
+require 'gw_command'
 require 'enumerator'
-require 'pp'
 require 'timeout'
 
 HAVE_WIN32OLE_ROT =  VsTool::gem_version_match('win32olerot', ">=0.0.2")
@@ -18,7 +17,7 @@ if HAVE_WIN32OLE_ROT then
   require 'win32olerot'
 end
 
-exit if OcraTools.ocra_is_compiling?
+#exit if OcraTools.ocra_is_compiling?
 
 def optional_project(args)
   args.push(nil)

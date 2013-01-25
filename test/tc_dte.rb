@@ -1,7 +1,7 @@
 #!/ruby/bin/ruby -w
 
 require 'test/unit'
-require 'dte.rb'
+require 'vstool'
 require 'enumerator'
 require 'pp'
 

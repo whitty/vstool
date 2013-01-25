@@ -1,8 +1,8 @@
 require 'win32ole'
 #require 'win32ole_query'
 require 'set'
-require 'underscore'
-require 'camelcase'
+require 'facets/string/snakecase'
+require 'facets/string/camelcase'
 
 module VsTool
 

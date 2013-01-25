@@ -1,8 +1,18 @@
 #!ruby -w
 
 require 'yaml'
-require 'clearcase/pathname'
 require 'enumerator'
+
+begin
+  require 'clearcase/pathname'
+rescue LoadError
+  module Clearcase
+    def self.available?
+      false
+    end
+  end
+end
+
 require 'pp'
 
 module VsTool
