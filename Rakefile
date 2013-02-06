@@ -33,8 +33,6 @@ if HAVE_OCRA
   task :ocra => 'vstool.exe'
 
   file "vstool.exe" do |t|
-    sh "echo hello"
-
     ruby_lib_orig = ruby_lib = ENV['RUBYLIB']
     
     if ruby_lib
@@ -42,6 +40,7 @@ if HAVE_OCRA
     else
       ruby_lib = 'lib'
     end
+
     ENV['RUBYLIB']=ruby_lib
     sh  'ocra', 'bin/vstool'
     ENV['RUBYLIB']=ruby_lib_orig
