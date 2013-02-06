@@ -13,7 +13,14 @@
 #  You should have received a copy of the GNU Lesser General Public
 #  License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'win32ole'
+# allow program to start up on linux - because access to windows is
+# sporadic these days
+begin
+  require 'win32ole'
+rescue LoadError
+  require 'vstool/win32ole_stub'
+end
+
 require 'set'
 require 'facets/string/snakecase'
 require 'facets/string/camelcase'

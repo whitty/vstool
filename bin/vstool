@@ -26,11 +26,14 @@ require 'gw_command'
 require 'enumerator'
 require 'timeout'
 
-HAVE_WIN32OLE_ROT =  VsTool::gem_version_match('win32olerot', ">=0.0.2")
-if HAVE_WIN32OLE_ROT then
-  gem 'win32olerot', ">=0.0.2"    # require exception fix
-  require 'win32olerot'
-end
+HAVE_WIN32OLE_ROT = begin
+                      gem 'win32olerot', ">=0.0.2"    # require exception fix
+                      true
+                    rescue Gem::LoadError
+                      false
+                    end
+
+require 'win32olerot' if HAVE_WIN32OLE_ROT
 
 #exit if OcraTools.ocra_is_compiling?
 
