@@ -19,7 +19,34 @@ require 'rspec/core/rake_task'
 require 'rake/testtask'
 require 'pp'
 
+HAVE_OCRA = begin
+              gem 'ocra'
+              true
+            rescue Gem::LoadError
+              false
+            end
+
 task :default => [:test]
+
+if HAVE_OCRA
+  desc "Build vstool.exe with ocra"
+  task :ocra => 'vstool.exe'
+
+  file "vstool.exe" do |t|
+    sh "echo hello"
+
+    ruby_lib_orig = ruby_lib = ENV['RUBYLIB']
+    
+    if ruby_lib
+      ruby_lib = 'lib;#{ruby_lib}'
+    else
+      ruby_lib = 'lib'
+    end
+    ENV['RUBYLIB']=ruby_lib
+    sh  'ocra', 'bin/vstool'
+    ENV['RUBYLIB']=ruby_lib_orig
+  end
+end
 
 Rake::TestTask.new do |t|
   t.test_files = FileList['test/tc_*rb']
@@ -31,3 +58,4 @@ RSpec::Core::RakeTask.new do |t|
   t.ruby_opts = ['-w']
   # t.rspec_opts = ['-r', 'offline_only']
 end
+
