@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-# (C) Copyright Greg Whiteley 2009-2012
+# (C) Copyright Greg Whiteley 2009-2013
 # 
 #  This is free software: you can redistribute it and/or modify it
 #  under the terms of the GNU Lesser General Public License as
@@ -17,9 +17,9 @@
 
 require 'pathname'
 
-#review this - ocra integration
-#require 'ocratools'
-#OcraTools.modify_facets_path
+# use local copy of OcraTools
+require 'vstool/ocratools'
+OcraTools.modify_facets_path
 
 require 'vstool'
 require 'gw_command'
@@ -35,7 +35,7 @@ HAVE_WIN32OLE_ROT = begin
 
 require 'win32olerot' if HAVE_WIN32OLE_ROT
 
-#exit if OcraTools.ocra_is_compiling?
+exit if OcraTools.ocra_is_compiling?
 
 def optional_project(args)
   args.push(nil)
