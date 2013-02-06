@@ -14,5 +14,5 @@
 #  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module VsTool
-  VERSION = "0.2"
+  VERSION = "0.2.1"
 end
