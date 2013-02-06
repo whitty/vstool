@@ -45,7 +45,7 @@ def max_args(args, max)
   raise Command::CommandError.new("Unexpected extra parameters") if args.length > max
 end
 
-parser = Command::Toplevel.new("vstool", "0.1a") do |tl|
+parser = Command::Toplevel.new("vstool", VsTool::VERSION) do |tl|
   config = VsTool::Config.new
 
   tl.block_command(:debug, "Start the debugger going - equivalent to 'go'") do |cmd|

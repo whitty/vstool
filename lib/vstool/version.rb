@@ -1,4 +1,4 @@
-# (C) Copyright Greg Whiteley 2009-2012
+# (C) Copyright Greg Whiteley 2009-2013
 # 
 #  This is free software: you can redistribute it and/or modify it
 #  under the terms of the GNU Lesser General Public License as
@@ -14,5 +14,5 @@
 #  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module VsTool
-  VERSION = "0.2.1"
+  VERSION = "0.2.2"
 end
