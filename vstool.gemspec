@@ -23,8 +23,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Greg Whiteley"]
   s.email       = ["whitty@users.forge.net"]
   s.homepage    = "https://github.com/whitty/vstool"
-  s.summary     = %q{vstool eases creation of tools with sub-commands}
-  s.description = %q{vstool eases creation of tools with sub-commands}
+  s.summary     = %q{vstool allows command-line driving of Visual Studio build and debug commands}
+  s.description = %q{vstool allows command-line driving of Visual Studio build and debug commands}
   s.license     = "LGPL"
 
   s.rubyforge_project = "vstool"
