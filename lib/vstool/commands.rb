@@ -208,8 +208,8 @@ module VsTool
         return -1
       end
 
-      # Attach ato-abort handlers
-      VsTool::AtoAbortCommand.new(self.config).run(@project)
+      # Attach abort handlers
+      VsTool::AbortCommand.new(self.config).run(@project)
       while file = args.shift do
         VsTool::OpenCommand.new(self.config).run(@project, file)
       end
@@ -237,7 +237,7 @@ module VsTool
   end
 
   module AbortCommands
-    @@breakpoints = ['atoCreateAbortStream_', '_purecall', 'atoQuit_', 'SilAssertionFailed']
+    @@breakpoints = [ '_abort', '_purecall', ]
     def connect_abort_breakpoints
       @@breakpoints.each do |bp|
         @dte.debugger.Breakpoints.add(bp)
@@ -245,39 +245,7 @@ module VsTool
     end
   end
 
-  class AtoErrorCommand < OpenCommand
-    include AbortCommands
-
-    def initialize(view, *args)
-      super(*args)
-      @view = nil
-      @view = Pathname.new(view.to_s) unless view.nil?
-    end
-
-    ATO_ERROR_PATH = "cerberus/acl/col_/error/atoError_.cpp"
-
-    def run_dte(*args)
-      begin
-        # use confiuged view if present
-        if @view then
-          error = @view + ATO_ERROR_PATH
-        end
-        if error.nil? or !error.exist? then
-          # try to determine it
-          error = self.config.view_path(ATO_ERROR_PATH)
-        end
-        super(error.realpath)
-      rescue ArgumentError => e
-        # handle known exception from view_path (when not in a VOB)
-        raise unless e.message =~ /Unable to determine VOB for path/
-        $stderr.puts e.message
-      end
-
-      self.connect_abort_breakpoints
-    end
-  end
-
-  class AtoAbortCommand < DteCommand
+  class AbortCommand < DteCommand
     include AbortCommands
 
     def run_dte(*args)
