@@ -1,4 +1,4 @@
 source "http://rubygems.org"
 
-# Specify your gem's dependencies in gw_command.gemspec
+# Specify your gem's dependencies in vstool.gemspec
 gemspec

@@ -48,7 +48,7 @@ end
 parser = Command::Toplevel.new("vstool", VsTool::VERSION) do |tl|
   config = VsTool::Config.new
 
-  tl.block_command(:debug, "Start the debugger going - equivalent to 'go'") do |cmd|
+  tl.block_command(:debug, "Start the debugger going - equivalent to\n#{" "*37}'go'") do |cmd|
     cmd.run do |args|
       # allow implicit solution
       optional_project(args) if args.length < 1
@@ -57,7 +57,7 @@ parser = Command::Toplevel.new("vstool", VsTool::VERSION) do |tl|
     end
   end
 
-  tl.block_command(:forcebreak, "Continue restarting debugger until a break occurs") do |cmd|
+  tl.block_command(:forcebreak, "Continue restarting debugger until a break\n#{" "*37}occurs") do |cmd|
     cmd.run do |args|
       # allow implicit solution
       optional_project(args) if args.length < 1
@@ -66,7 +66,7 @@ parser = Command::Toplevel.new("vstool", VsTool::VERSION) do |tl|
     end
   end
 
-  tl.block_command(:stop, "Stop the debugger and terminate any processes - equivalent to 'Terminate All'") do |cmd|
+  tl.block_command(:stop, "Stop the debugger and terminate any\n#{" "*37}processes - equivalent to 'Terminate All'") do |cmd|
     cmd.run do |args|
       # allow implicit solution
       optional_project(args) if args.length < 1
@@ -75,33 +75,7 @@ parser = Command::Toplevel.new("vstool", VsTool::VERSION) do |tl|
     end
   end
 
-  tl.block_command(:ato_error, "Pop open atoError_.cpp ready for ATO_ABORT " +
-                   "debugging and set breakpoints in " +
-                   "atoCreateAbortStream_()'") do |cmd|
-    view = nil
-    cmd.parms do |opts|
-      opts.on("--view [VIEW]", "Optionally override the view path for locating the AtoError files") do |v|
-        view = v.to_s
-      end
-    end
-    cmd.run do |args|
-      # allow implicit solution
-      optional_project(args) if args.length < 1
-
-      VsTool::AtoErrorCommand.new(view, config).run(*args)
-    end
-  end
-
-  tl.block_command(:ato_abort, "Set breakpoints in atoCreateAbortStream_()'") do |cmd|
-    cmd.run do |args|
-      # allow implicit solution
-      optional_project(args) if args.length < 1
-
-      VsTool::AtoAbortCommand.new(config).run(*args)
-    end
-  end
-
-  tl.block_command(:pop, "Start visual studio and open any files given after the command") do |cmd|
+  tl.block_command(:pop, "Start visual studio and open any files\n#{" "*37}given after the command") do |cmd|
     timeout = nil
     cmd.usage_suffix = "[files...]"
     cmd.parms do |opts|
@@ -158,7 +132,7 @@ parser = Command::Toplevel.new("vstool", VsTool::VERSION) do |tl|
     end
   end
 
-  tl.block_command(:build, "Build the solution - equivalent to 'Build Solution'") do |cmd|
+  tl.block_command(:build, "Build the solution - equivalent to 'Build\n#{" "*37}Solution'") do |cmd|
     cmd.run do |args|
       # allow implicit solution
       optional_project(args) if args.length < 1
@@ -192,7 +166,7 @@ parser = Command::Toplevel.new("vstool", VsTool::VERSION) do |tl|
     end
   end
   
-  tl.block_command(:configuration, "Get or set the active configuration (eg \"Release\" and \"Debug\")") do |cmd|
+  tl.block_command(:configuration, "Get or set the active configuration (eg\n#{" "*37}\"Release\" and \"Debug\")") do |cmd|
     cmd.usage_suffix = "Configuration"
 
     cmd.run do |args|
