@@ -47,18 +47,18 @@ module VsTool
 
           case mode
           when DESIGN_MODE
-            puts "Debugger in Design mode - restart it" if $verbose
+            puts "Debugger in Design mode - restart it" if $VERBOSE
             @dte.Debugger.go(false)
           when RUN_MODE
-            puts "Debugger in Run mode - poll again later" if $debug
+            puts "Debugger in Run mode - poll again later" if $DEBUG
             next
           when BREAK_MODE
-            puts "Debugger in break mode - done" if $verbose
+            puts "Debugger in break mode - done" if $VERBOSE
             break
           end
 
         rescue OleServerBusy => e
-          p e.message if $debug
+          p e.message if $DEBUG
           consecutive_fail += 1
           next
         rescue WIN32OLERuntimeError => e
@@ -146,7 +146,7 @@ module VsTool
 
       rot = HAVE_WIN32OLE_ROT ? WIN32OLE::RunningObjectTable.new : nil
 
-      p [target_sln, exe_sln, native_sln] if $debug
+      p [target_sln, exe_sln, native_sln] if $DEBUG
 
       # prefer sln if it exists
       if target_sln =~ /\.exe$/i
@@ -160,7 +160,7 @@ module VsTool
         native_sln = target_sln.dup
       end
 
-      p [target_sln, exe_sln, native_sln] if $debug
+      p [target_sln, exe_sln, native_sln] if $DEBUG
 
       if !rot or !rot.is_running?(target_sln) then
 
@@ -175,7 +175,7 @@ module VsTool
           exe_sln = sln
         end
       end
-      p [target_sln, exe_sln, native_sln] if $debug
+      p [target_sln, exe_sln, native_sln] if $DEBUG
 
       if !rot or (!rot.is_running?(target_sln) and !rot.is_running?(native_sln)) then
         ide = nil
@@ -202,12 +202,12 @@ module VsTool
       Timeout.timeout(@timeout) do
           # from now connections are all to the solution (not the exe)
         while rot and !rot.is_running?(native_sln) do
-          puts "#{native_sln} Not running yet" if $debug
+          puts "#{native_sln} Not running yet" if $DEBUG
           sleep(0.5)
         end
 
         begin
-          puts "Attempt Connect" if $debug
+          puts "Attempt Connect" if $DEBUG
           solution = Dte.new(native_sln)
           break
         rescue WIN32OLERuntimeError => e
@@ -286,9 +286,9 @@ module VsTool
 
     def run_process_dte(process)
       unless process.IsBeingDebugged
-        puts "Attaching to '#{process.Name}'" if $verbose
+        puts "Attaching to '#{process.Name}'" if $VERBOSE
         process.attach2(@engines)
-        puts "Done" if $verbose
+        puts "Done" if $VERBOSE
       else
         puts "Already attached to '#{process.Name}'"
       end
@@ -300,9 +300,9 @@ module VsTool
 
     def run_process_dte(process)
       if process.IsBeingDebugged
-        puts "Detaching from '#{process.Name}'" if $verbose
+        puts "Detaching from '#{process.Name}'" if $VERBOSE
         process.detach
-        puts "Done" if $verbose
+        puts "Done" if $VERBOSE
       else
         puts "Not attached to process '#{process.Name}'"
       end

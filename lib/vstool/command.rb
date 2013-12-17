@@ -54,7 +54,7 @@ module VsTool
     def run(project, *args)
 
       project = determine_project(project)
-      puts "project: " + project.inspect if $debug
+      puts "project: " + project.inspect if $DEBUG
       raise "Unable to locate project" if project.nil?
 
       @project = project
