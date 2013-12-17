@@ -178,8 +178,21 @@ module VsTool
       p [target_sln, exe_sln, native_sln] if $debug
 
       if !rot or (!rot.is_running?(target_sln) and !rot.is_running?(native_sln)) then
-        cmd = "start devenv.exe \"#{target_sln}\""
-        puts cmd.gsub(/^start /, '') if $verbose
+        ide = nil
+
+        # Try a little harder in case devenv is not available (eg VS express)
+        if ENV["VS110COMNTOOLS"] and Pathname(ENV["VS110COMNTOOLS"]).exist? 
+          ide = Pathname(ENV["VS110COMNTOOLS"]) + '..' + 'IDE' + 'WDExpress.exe'
+          ide = nil unless ide.exist?
+        end
+        if ide.nil? and ENV["VS100COMNTOOLS"] and Pathname(ENV["VS100COMNTOOLS"]).exist? 
+          ide = Pathname(ENV["VS100COMNTOOLS"]) + '..' + 'IDE' + 'VCExpress.exe'
+          ide = nil unless ide.exist?
+        end
+
+        ide = "devenv.exe" if ide.nil?
+        cmd = "start \"#{ide}\" \"#{target_sln}\""
+        puts cmd.gsub(/^start /, '') if $VERBOSE
         system(cmd)
       end
       # Nothing more to do
