@@ -262,10 +262,19 @@ module VsTool
 
   class AttachCommand < ProcessDteCommand
 
+    def initialize(config, engines)
+      super(config)
+      # for now we get errors attaching to multiple engines
+      if engines.length == 1
+        engines = engines.first
+      end
+      @engines = engines
+    end
+
     def run_process_dte(process)
       unless process.IsBeingDebugged
         puts "Attaching to '#{process.Name}'" if $verbose
-        process.attach2("native")
+        process.attach2(@engines)
         puts "Done" if $verbose
       else
         puts "Already attached to '#{process.Name}'"

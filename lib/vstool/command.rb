@@ -110,6 +110,11 @@ module VsTool
     end
 
     def run_dte(cmp, *args)
+      if cmp.nil?
+        $stderr.puts "No process specified"
+        return nil
+      end
+
       found = @dte.enum_for(:each_process).find_all do |process|
         ProcessDteCommand.match(process.name, cmp) or process.ProcessId.to_s == cmp.to_s
       end

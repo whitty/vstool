@@ -104,11 +104,20 @@ parser = Command::Toplevel.new("vstool", VsTool::VERSION) do |tl|
 
   tl.block_command(:attach, "Attach the debugger to a given process") do |cmd|
     cmd.usage_suffix = "Process"
+    engines = []
+    cmd.parms do |opts|
+      opts.on("--engine [engine]", Array, [:native, :managed], "Select debugging engine to use") do |e|
+        engines << e
+      end
+    end
     cmd.run do |args|
       # allow implicit solution
       optional_project(args) if args.length == 1
 
-      VsTool::AttachCommand.new(config).run(*args)
+      engines = [:native] if engines.length == 0
+      engines = engines.map {|x| x.to_s}.uniq
+
+      VsTool::AttachCommand.new(config, engines).run(*args)
     end
   end
 
